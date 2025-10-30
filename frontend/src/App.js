@@ -7,6 +7,7 @@ import ProfilePage from './pages/profile-page/ProfilePage';
 import InputPage from './pages/input-page/InputPage';
 import OutputPage from './pages/output-page/OutputPage';
 import LogRegPage from './pages/log-reg-page/LogRegPage';
+import './pages/home-page/HomePage.css';
 
 function App() {
   return (
