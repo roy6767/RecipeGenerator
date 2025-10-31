@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChefHat, LogOut, User, Cookie, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
+import './style/HomePage.css';
 import RecipeModal from './RecipeModal';
 
 const HomePage = () => {
