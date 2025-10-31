@@ -103,6 +103,15 @@ body {
     padding-bottom: 2rem;
     width: 100%;
     box-sizing: border-box;
+    display: flex; 
+    flex-direction: column;
+}
+
+.main-content .content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 .main-title {
@@ -144,8 +153,9 @@ body {
 
 .carousel-wrapper {
     position: relative;
-    height: 600px;
     overflow: hidden;
+    flex: 1; 
+    min-height: 0;
 }
 
 .carousel-content {
