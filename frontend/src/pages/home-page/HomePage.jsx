@@ -92,16 +92,17 @@ const HomePage = () => {
             </main>
 
             {/* Footer */}
+
             <footer className="nav-bar footer-nav">
                 <div className="max-w-7xl mx-auto px-4">
-                    <div className="flex flex-col sm-flex-row justify-between items-center gap-4">
+                    <div id="footer-elements" className="flex flex-col sm-flex-row justify-between items-center">
                         <button className="primary-btn green-btn">
                             <ChefHat size={20} />
                             <span className="hidden sm-inline">Generate Recipe</span>
                         </button>
                         
-                        <div className="flex flex-col items-center gap-4">
-                            <div className="flex gap-6 text-gray-400">
+                        <div className="flex flex-col items-center ">
+                            <div className="flex text-gray-400">
                                 <a href="#" className="footer-link">
                                     <Shield size={16} />
                                     <span>Privacy Policy</span>

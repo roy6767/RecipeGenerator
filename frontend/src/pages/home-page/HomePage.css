@@ -2,15 +2,19 @@
    BASE LAYOUT
    ========================================================================= */
 /* Main div */
-.max-w-7xl mx-auto px-4 {
+/* Main div */
+.max-w-7xl.mx-auto.px-4 {
     display: block;
     unicode-bidi: isolate;
     width: 100%;
     box-sizing: border-box;
+    align-self: center  ;
 }
 
 body {
     background-color: #1f2937;
+      display: flex;
+      justify-content: center;
 }
 
 
@@ -83,6 +87,10 @@ body {
 .footer-text {
     color: #9ca3af;
     font-size: 0.875rem; /* text-sm */
+}
+
+#footer-elements {
+    align: center;
 }
 
 /* =========================================================================
