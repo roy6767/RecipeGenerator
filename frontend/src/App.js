@@ -7,6 +7,7 @@ import ProfilePage from './pages/profile-page/ProfilePage';
 import InputPage from './pages/input-page/InputPage';
 import OutputPage from './pages/output-page/OutputPage';
 import LogRegPage from './pages/log-reg-page/LogRegPage';
+import PrivacyPolicy from './pages/home-page/PrivacyPolicy';
 import './pages/home-page/HomePage.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/input" element={<InputPage />} />
           <Route path="/output" element={<OutputPage />} />
           <Route path="/auth" element={<LogRegPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </div>
     </Router>
