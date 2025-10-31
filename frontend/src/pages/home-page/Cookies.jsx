@@ -1,8 +1,8 @@
 import React from 'react';
 import { ArrowLeft, ChefHat, Shield, Cookie, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
-import './Cookies.css';
+import './style/HomePage.css';
+import './style/Cookies.css';
 
 const Cookies = () => {
     const navigate = useNavigate();

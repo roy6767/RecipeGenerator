@@ -1,8 +1,8 @@
 import React from 'react';
 import { ArrowLeft, ChefHat, Shield, Cookie, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
-import './PrivacyPolicy.css';
+import './style/HomePage.css';
+import './style/PrivacyPolicy.css';
 
 const PrivacyPolicy = () => {
     const navigate = useNavigate();
