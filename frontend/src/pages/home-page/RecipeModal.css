@@ -1,0 +1,94 @@
+/* =========================================================================
+   RECIPE MODAL
+   ========================================================================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #1f2937; /* Match card background */
+  color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px; /* Limit max width */
+  max-height: 90vh; /* Limit max height */
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 200ms;
+}
+
+.modal-close-btn:hover {
+  color: #ffffff;
+}
+
+.modal-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.modal-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #374151;
+}
+
+.modal-sub-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #10b981; /* Green accent */
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-ingredients {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: #d1d5db;
+}
+
+.modal-ingredients li {
+  margin-bottom: 0.25rem;
+}
+
+.modal-description {
+  color: #d1d5db;
+  line-height: 1.6;
+  white-space: pre-wrap; /* Preserves line breaks in the description */
+}
