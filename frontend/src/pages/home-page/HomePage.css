@@ -1,6 +1,18 @@
 /* =========================================================================
    BASE LAYOUT
    ========================================================================= */
+/* Main div */
+.max-w-7xl mx-auto px-4 {
+    display: block;
+    unicode-bidi: isolate;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1f2937;
+}
+
 
 .app-container {
     min-height: 100vh;
