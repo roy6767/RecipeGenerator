@@ -95,8 +95,8 @@ const PrivacyPolicy = () => {
                         <div className="privacy-section">
                             <h2>8. Contact Us</h2>
                             <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-                            <p>Email: privacy@recipeapp.com<br />
-                            Address: 123 Recipe Street, Food City, FC 12345</p>
+                            <p>Email: info@jensen.utbildning.com<br />
+                             Address: Medborgarplatsen 25, 118 26, Stockholm</p>
                         </div>
 
                         <div className="privacy-footer">
