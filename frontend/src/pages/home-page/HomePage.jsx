@@ -125,8 +125,12 @@ const HomePage = () => {
         setSelectedRecipe(null);
     };
 
-     const handlePrivacyPolicyClick = () => {
+    const handlePrivacyPolicyClick = () => {
         navigate('/privacy-policy');
+    };
+
+    const handleCookiesClick = () => {
+        navigate('/cookies');
     };
 
        return (
@@ -191,19 +195,23 @@ const HomePage = () => {
                         
                         <div className="footer-center">
                             <div className="footer-links">
-                                <button 
-                                    onClick={handlePrivacyPolicyClick} 
-                                    className="footer-link"
-                                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                                >
-                                    <Shield size={16} />
-                                    <span>Privacy Policy</span>
-                                </button>
-                                <a href="#" className="footer-link">
-                                    <Cookie size={16} />
-                                    <span>Cookies</span>
-                                </a>
-                            </div>
+                            <button 
+                                onClick={handlePrivacyPolicyClick} 
+                                className="footer-link"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                            >
+                                <Shield size={16} />
+                                <span>Privacy Policy</span>
+                            </button>
+                            <button 
+                                onClick={handleCookiesClick} 
+                                className="footer-link"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                            >
+                                <Cookie size={16} />
+                                <span>Cookies</span>
+                            </button>
+                        </div>
                             <p className="footer-text">
                                 © All rights reserved by Jensen YH-AWS24
                             </p>
