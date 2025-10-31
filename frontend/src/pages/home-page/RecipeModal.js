@@ -1,6 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import './RecipeModal.css'; // We will create this CSS file next
+import './style/RecipeModal.css'; // We will create this CSS file next
 
 const RecipeModal = ({ recipe, onClose }) => {
   if (!recipe) return null;
