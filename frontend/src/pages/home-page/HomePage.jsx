@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChefHat, LogOut, User, Cookie, Shield } from 'lucide-react';
-
-// 💡 NEW: Import the standard CSS file
 import './HomePage.css';
 
 const HomePage = () => {
@@ -39,10 +37,10 @@ const HomePage = () => {
     }, [recipes.length]);
 
     return (
+        /* Main Content */
         <div className="app-container">
-            {/* Navbar */}
             <nav className="nav-bar sticky-nav">
-                <div className="max-w-7xl mx-auto flex justify-center items-center">
+                <div className="nav-container">
                     <button className="primary-btn red-btn">
                         <LogOut size={20} />
                         <span className="hidden sm-inline">Logout</span>
@@ -52,7 +50,7 @@ const HomePage = () => {
 
             {/* Main Content */}
             <main className="main-content">
-                <div className="max-w-7xl mx-auto px-4">
+                <div className="content-container">
                     <h1 className="main-title">Delicious Recipes</h1>
                     
                     <div className="carousel-wrapper">
@@ -91,18 +89,17 @@ const HomePage = () => {
                 </div>
             </main>
 
-            {/* Footer */}
-
+            {/* Footer - Fixed padding consistency */}
             <footer className="nav-bar footer-nav">
-                <div className="max-w-7xl mx-auto px-4">
-                    <div id="footer-elements" className="flex flex-col sm-flex-row justify-between items-center">
+                <div className="nav-container">
+                    <div id="footer-elements" className="footer-content">
                         <button className="primary-btn green-btn">
                             <ChefHat size={20} />
                             <span className="hidden sm-inline">Generate Recipe</span>
                         </button>
                         
-                        <div className="flex flex-col items-center ">
-                            <div className="flex text-gray-400">
+                        <div className="footer-center">
+                            <div className="footer-links">
                                 <a href="#" className="footer-link">
                                     <Shield size={16} />
                                     <span>Privacy Policy</span>
