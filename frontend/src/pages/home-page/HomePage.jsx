@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChefHat, LogOut, User, Cookie, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
-import RecipeModal from './RecipeModal'; // Make sure this import is correct
+import RecipeModal from './RecipeModal';
 
 const HomePage = () => {
     // Refs for animation, state for modal
@@ -9,6 +10,7 @@ const HomePage = () => {
     const animationFrameRef = useRef(null);
     const scrollPositionRef = useRef(0);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const navigate = useNavigate();
 
     const recipes = [
       { 
@@ -123,10 +125,13 @@ const HomePage = () => {
         setSelectedRecipe(null);
     };
 
-    return (
-        /* Main Content */
+     const handlePrivacyPolicyClick = () => {
+        navigate('/privacy-policy');
+    };
+
+       return (
         <div className="app-container">
-            {/* THIS IS YOUR ORIGINAL NAVBAR (RESTORED) */}
+            {/* Navigation Bar */}
             <nav className="nav-bar sticky-nav">
                 <div className="nav-container">
                     <button className="primary-btn red-btn">
@@ -145,14 +150,13 @@ const HomePage = () => {
                         <div 
                             ref={containerRef}
                             className="carousel-content"
-                            // No style prop needed here
                         >
                             <div className="recipe-grid"> 
                                 {duplicatedRecipes.map((recipe, index) => (
                                     <div 
                                         key={`${recipe.id}-${index}`}
                                         className="recipe-card"
-                                        onClick={() => handleRecipeClick(recipe)} // <-- Click handler
+                                        onClick={() => handleRecipeClick(recipe)}
                                     >
                                         <img 
                                             src={recipe.image} 
@@ -176,7 +180,7 @@ const HomePage = () => {
                 </div>
             </main>
 
-            {/* THIS IS YOUR ORIGINAL FOOTER (RESTORED) */}
+            {/* Footer */}
             <footer className="nav-bar footer-nav">
                 <div className="nav-container">
                     <div id="footer-elements" className="footer-content">
@@ -187,10 +191,14 @@ const HomePage = () => {
                         
                         <div className="footer-center">
                             <div className="footer-links">
-                                <a href="#" className="footer-link">
+                                <button 
+                                    onClick={handlePrivacyPolicyClick} 
+                                    className="footer-link"
+                                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                                >
                                     <Shield size={16} />
                                     <span>Privacy Policy</span>
-                                </a>
+                                </button>
                                 <a href="#" className="footer-link">
                                     <Cookie size={16} />
                                     <span>Cookies</span>
@@ -209,7 +217,7 @@ const HomePage = () => {
                 </div>
             </footer>
 
-            {/* Modal rendering (this is correct) */}
+            {/* Modal rendering */}
             {selectedRecipe && (
                 <RecipeModal 
                     recipe={selectedRecipe} 
