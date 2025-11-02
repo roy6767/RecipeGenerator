@@ -17,6 +17,12 @@ const promisePool = pool.promise();
 
 // Test database connection
 pool.getConnection((err, connection) => {
+  console.log("DB NAME: " + dbConfig.DB);
+  console.log("DB USER: " + dbConfig.USER);
+  console.log("DB HOST: " + dbConfig.HOST);
+  console.log("DB PASSWORD: " + dbConfig.PASSWORD);
+  console.log("NODE ENV: " + process.env.NODE_ENV);
+  console.log("PORT: " + process.env.PORT);
   if (err) {
     console.error('Error connecting to MySQL database:', err.message);
     return;
