@@ -63,6 +63,12 @@ const apiService = {
     delete: (id) => api.delete(`/api/users/${id}`)
   },
 
+  // Recipe endpoints
+  recipes: {
+    getAll: () => api.get('/api/recipes'),
+    getById: (id) => api.get(`/api/recipes/${id}`)
+  },
+
   // Health check
   healthCheck: () => api.get('/'),
 
