@@ -2,13 +2,8 @@
 CREATE DATABASE IF NOT EXISTS fridge;
 USE fridge;
 
--- METE' TABLE 
--- Drop tables if they exist (in reverse order due to foreign key constraints)
-DROP TABLE IF EXISTS ingredients;
-DROP TABLE IF EXISTS recipes;
-
--- Create the main 'recipes' table
-CREATE TABLE recipes (
+-- Create the main 'recipes' table if not exists
+CREATE TABLE IF NOT EXISTS recipes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   image_url VARCHAR(512),
@@ -19,16 +14,16 @@ CREATE TABLE recipes (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create the 'ingredients' table
-CREATE TABLE ingredients (
+-- Create the 'ingredients' table if not exists
+CREATE TABLE IF NOT EXISTS ingredients (
   id INT AUTO_INCREMENT PRIMARY KEY,
   recipe_id INT NOT NULL,
   ingredient_text VARCHAR(255) NOT NULL,
   FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Insert all recipes
-INSERT INTO recipes (id, title, image_url, cook_time, difficulty, description) VALUES
+-- Insert only new recipes
+INSERT IGNORE INTO recipes (id, title, image_url, cook_time, difficulty, description) VALUES
 (1, 'Classic Margherita Pizza', 
  'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&h=400&fit=crop', 
  '30 min', 
@@ -65,8 +60,8 @@ INSERT INTO recipes (id, title, image_url, cook_time, difficulty, description) V
  'Hard',
  '1. Preheat oven to 220°C (425°F). Grease two ramekins.\n2. Melt dark chocolate and butter together in the microwave.\n3. In a separate bowl, whisk eggs, egg yolks, and sugar until pale and fluffy.\n4. Fold the melted chocolate mixture into the eggs, then gently fold in the flour.\n5. Pour batter into ramekins and bake for 12-14 minutes. The edges should be firm but the center still soft.\n6. Let cool for 1 minute, then invert onto a plate.');
 
--- Insert all ingredients
-INSERT INTO ingredients (recipe_id, ingredient_text) VALUES
+-- Insert only new ingredients
+INSERT IGNORE INTO ingredients (recipe_id, ingredient_text) VALUES
 -- Recipe 1: Classic Margherita Pizza
 (1, '1 Pizza Dough'),
 (1, '1/2 cup Tomato Sauce'),
