@@ -78,6 +78,11 @@ The application will open in your browser at `http://localhost:3000`.
 2. Update the `backend/config/db.config.js` file with your database credentials
 3. Create necessary tables (to be implemented)
 
+
+## Testing home-page API
+- **GET /api/recipes** - Fetches all recipes with their ingredients from the database
+- **GET /api/recipes/:id** - Fetches a single recipe by ID with ingredients
+
 ## Technologies Used
 
 - **Frontend**: React, React Router DOM, Axios
