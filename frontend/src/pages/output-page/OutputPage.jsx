@@ -1,4 +1,5 @@
 import React, {useEffect, useState}from "react";
+import "./OutputPage.css";
 
 function OutputPage() {
     const [result, setResult] = React.useState(null);
