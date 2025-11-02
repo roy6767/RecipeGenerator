@@ -6,6 +6,7 @@ const { errorHandler, notFoundHandler } = require("./middleware/errorHandler");
 // Import routes
 const userRoutes = require("./routes/user.routes");
 const outputRoutes = require("./routes/output.routes");
+const recipeRoutes = require("./routes/recipe.routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 // API routes
 app.use("/api/users", userRoutes);
 app.use("/api/results", outputRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 // 404 handler - must be after all routes
 app.use(notFoundHandler);
