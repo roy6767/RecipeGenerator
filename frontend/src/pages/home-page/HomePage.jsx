@@ -39,6 +39,7 @@ const HomePage = () => {
 
     const duplicatedRecipes = [...recipes, ...recipes];
 
+    // Infinite scroll animation effect
     useEffect(() => {
     if (!containerRef.current || recipes.length === 0) return;
 
@@ -63,8 +64,6 @@ const HomePage = () => {
 
     return () => cancelAnimationFrame(animationFrameRef.current);
     }, [recipes, selectedRecipe]);
-
-
 
 
     const handleRecipeClick = (recipe) => {
