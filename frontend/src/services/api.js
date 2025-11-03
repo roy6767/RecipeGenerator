@@ -69,16 +69,6 @@ const apiService = {
     getById: (id) => api.get(`/api/recipes/${id}`)
   },
 
-  // Health check
-  healthCheck: () => api.get('/'),
-
-  // Add more service methods as needed
-  // Example:
-  // auth: {
-  //   login: (credentials) => api.post('/api/auth/login', credentials),
-  //   register: (data) => api.post('/api/auth/register', data),
-  //   logout: () => api.post('/api/auth/logout')
-  // }
 };
 
 export default apiService;

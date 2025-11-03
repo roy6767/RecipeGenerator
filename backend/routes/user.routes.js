@@ -37,7 +37,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // POST create new user
-router.post('/', async (req, res, next) => {
+router.post('/create', async (req, res, next) => {
   try {
     const { username, email } = req.body;
     
@@ -69,7 +69,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT update user
-router.put('/:id', async (req, res, next) => {
+router.put('/update/:id', async (req, res, next) => {
   try {
     const { username, email } = req.body;
     const [result] = await db.query(
@@ -94,7 +94,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // DELETE user
-router.delete('/:id', async (req, res, next) => {
+router.delete('/delete/:id', async (req, res, next) => {
   try {
     const [result] = await db.query('DELETE FROM users WHERE id = ?', [req.params.id]);
     

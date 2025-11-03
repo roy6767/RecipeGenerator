@@ -1,7 +1,8 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import './style/RecipeModal.css'; // We will create this CSS file next
+import './style/RecipeModal.css';
 
+// Single pop-up Recipe model when clicked
 const RecipeModal = ({ recipe, onClose }) => {
   if (!recipe) return null;
 
