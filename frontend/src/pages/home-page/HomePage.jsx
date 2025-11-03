@@ -37,40 +37,34 @@ const HomePage = () => {
         fetchRecipes();
     }, []);
 
-    const duplicatedRecipes = [...recipes, ...recipes, ...recipes];
+    const duplicatedRecipes = [...recipes, ...recipes];
 
-    // This useEffect handles the animation without causing re-renders
     useEffect(() => {
-        const scrollSpeed = 1;
-        const cardHeight = 320; // card height + gap
-        const totalHeight = recipes.length * cardHeight;
-        
-        const container = containerRef.current;
-        if (!container) return; 
+    if (!containerRef.current || recipes.length === 0) return;
 
-        const animate = () => {
-            scrollPositionRef.current += scrollSpeed;
-            
-            if (scrollPositionRef.current >= totalHeight * 2) {
-                scrollPositionRef.current = totalHeight;
-            }
+    const scrollSpeed = 1; // pixels per frame
+    const cardHeight = 320;
+    const totalHeight = recipes.length * cardHeight;
+    const container = containerRef.current;
 
-            container.style.transform = `translateY(-${scrollPositionRef.current}px)`;
-            animationFrameRef.current = requestAnimationFrame(animate);
-        };
+    const animate = () => {
+        scrollPositionRef.current += scrollSpeed;
 
-        // Only animate if the modal is NOT open
-        if (!selectedRecipe) {
-            animationFrameRef.current = requestAnimationFrame(animate);
+        // When first list fully scrolled, reset smoothly
+        if (scrollPositionRef.current >= totalHeight) {
+        scrollPositionRef.current -= totalHeight;
         }
 
-        // Cleanup: stop the animation
-        return () => {
-            if (animationFrameRef.current) {
-                cancelAnimationFrame(animationFrameRef.current);
-            }
-        };
-    }, [recipes.length, selectedRecipe]); // Re-runs when modal opens/closes
+        container.style.transform = `translateY(-${scrollPositionRef.current}px)`;
+        animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    if (!selectedRecipe) animationFrameRef.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrameRef.current);
+    }, [recipes, selectedRecipe]);
+
+
 
 
     const handleRecipeClick = (recipe) => {
