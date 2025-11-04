@@ -1,0 +1,26 @@
+{
+  "name": "recipegenerator",
+  "version": "1.0.0",
+  "description": "A full-stack web application built with React, Express.js, and MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roy6767/RecipeGenerator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/roy6767/RecipeGenerator/issues"
+  },
+  "homepage": "https://github.com/roy6767/RecipeGenerator#readme",
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}

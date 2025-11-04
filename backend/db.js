@@ -1,28 +1,35 @@
-const mysql = require('mysql2');
-const dbConfig = require('./config/db.config');
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Create connection pool
 const pool = mysql.createPool({
-  host: dbConfig.HOST,
-  user: dbConfig.USER,
-  password: dbConfig.PASSWORD,
-  database: dbConfig.DB,
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'fridge',
   waitForConnections: true,
-  connectionLimit: dbConfig.pool.max,
+  connectionLimit: 10,
   queueLimit: 0
 });
 
-// Get promise-based pool for async/await usage
-const promisePool = pool.promise();
-
 // Test database connection
-pool.getConnection((err, connection) => {
-  if (err) {
+async function testConnection() {
+  let connection;
+  try {
+    connection = await pool.getConnection();
+    console.log('Successfully connected to the database.');
+  } catch (err) {
     console.error('Error connecting to MySQL database:', err.message);
     return;
+  } finally {
+    if (connection) await connection.release();
   }
-  console.log('Successfully connected to MySQL database');
-  connection.release();
-});
+}
 
-module.exports = promisePool;
+// Test the connection when this module is imported
+testConnection().catch(console.error);
+
+// Export the pool for use in other modules
+export default pool;
