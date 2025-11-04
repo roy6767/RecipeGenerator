@@ -1,11 +1,9 @@
 import jwt from 'jsonwebtoken';
 import db from '../db.js';
 
-// Middleware to protect routes
 const protect = async (req, res, next) => {
   let token;
 
-  // Check for token in Authorization header
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')

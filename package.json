@@ -20,6 +20,9 @@
     "url": "https://github.com/roy6767/RecipeGenerator/issues"
   },
   "homepage": "https://github.com/roy6767/RecipeGenerator#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
   "devDependencies": {
     "react-scripts": "^5.0.1"
   }
