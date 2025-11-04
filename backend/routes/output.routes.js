@@ -1,17 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mysql = require("mysql2/promise");
-
-// Create a MySQL2 connection pool
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 5,
-  queueLimit: 0,
-});
+const db = require("../db");
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
