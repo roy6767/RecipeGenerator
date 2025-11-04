@@ -16,6 +16,15 @@ const HomePage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Check authentication on component mount
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            navigate('/auth');
+            return;
+        }
+    }, [navigate]);
+
     // Fetch recipes from API on component mount
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -83,12 +92,16 @@ const HomePage = () => {
         navigate('/cookies');
     };
 
+    const handleLogout = () => {
+        apiService.auth.logout();
+    };
+
        return (
         <div className="app-container">
             {/* Navigation Bar */}
             <nav className="nav-bar sticky-nav">
                 <div className="nav-container">
-                    <button className="primary-btn red-btn">
+                    <button className="primary-btn red-btn" onClick={handleLogout}>
                         <LogOut size={20} />
                         <span className="hidden sm-inline">Logout</span>
                     </button>

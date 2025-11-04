@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../../services/api';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -31,10 +32,15 @@ const ProfilePage = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Fetch profile data when component loads
+  // Check authentication and fetch profile data when component loads
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/auth');
+      return;
+    }
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
   // Function to get profile from backend
   const fetchProfile = async () => {
@@ -47,22 +53,16 @@ const ProfilePage = () => {
       
       if (!token) {
         setError('Please login first');
+        navigate('/auth');
         setLoading(false);
         return;
       }
 
-      // Call backend API
-      const response = await fetch('http://127.0.0.1:5000/api/profile', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      // Call backend API using apiService
+      const response = await apiService.profile.get();
+      const data = response.data;
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         // Set profile data from response
         const userEmail = data.user.email || '';
         setProfile({
@@ -75,11 +75,14 @@ const ProfilePage = () => {
         });
         // Store original email to track changes
         setOriginalEmail(userEmail);
-      } else {
-        setError(data.message || 'Failed to load profile');
       }
     } catch (err) {
-      setError('Error connecting to server');
+      if (err.response?.status === 401) {
+        setError('Please login first');
+        navigate('/auth');
+      } else {
+        setError('Error connecting to server');
+      }
       console.error('Error:', err);
     } finally {
       setLoading(false);
@@ -117,22 +120,14 @@ const ProfilePage = () => {
         updateData.password = profile.password;
       }
 
-      // Call backend API
-      const response = await fetch('http://127.0.0.1:5000/api/profile', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updateData)
-      });
-
-      const data = await response.json();
+      // Call backend API using apiService
+      const response = await apiService.profile.update(updateData);
+      const data = response.data;
 
       console.log('Response status:', response.status);
       console.log('Response data:', data);
 
-      if (response.ok) {
+      if (data) {
         setSuccess('Profile updated successfully!');
         setIsEditing(false);
         
@@ -140,14 +135,17 @@ const ProfilePage = () => {
         if (data.requireRelogin) {
           alert('Please login again with your new credentials');
           localStorage.removeItem('authToken');
-          window.location.href = '/login'; // Redirect to login page
+          navigate('/auth'); // Redirect to auth page
         }
-      } else {
-        setError(data.message || 'Failed to update profile');
-        console.error('Update failed:', data);
       }
     } catch (err) {
-      setError('Error connecting to server: ' + err.message);
+      if (err.response?.status === 401) {
+        setError('Please login first');
+        navigate('/auth');
+      } else {
+        const errorMessage = err.response?.data?.message || 'Error connecting to server';
+        setError(errorMessage);
+      }
       console.error('Error details:', err);
     }
   };

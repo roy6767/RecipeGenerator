@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import apiService from '../../services/api';
@@ -10,6 +10,15 @@ const GeneratePage = () => {
   const [error, setError] = useState('');
   const [result, setResult] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/auth');
+      return;
+    }
+  }, [navigate]);
 
   const parseIngredients = (text) =>
     text
