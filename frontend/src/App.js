@@ -10,6 +10,7 @@ import LogRegPage from "./pages/log-reg-page/LogRegPage";
 import PrivacyPolicy from "./pages/home-page/PrivacyPolicy";
 import "./pages/home-page/style/HomePage.css";
 import Cookies from "./pages/home-page/Cookies";
+import GeneratePage from "./pages/generate-page/GeneratePage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/auth" element={<LogRegPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/generate" element={<GeneratePage />} />
         </Routes>
       </div>
     </Router>

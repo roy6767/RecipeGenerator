@@ -148,7 +148,7 @@ const HomePage = () => {
             <footer className="nav-bar footer-nav">
                 <div className="nav-container">
                     <div id="footer-elements" className="footer-content">
-                        <button className="primary-btn green-btn">
+                        <button className="primary-btn green-btn" onClick={() => navigate('/generate')}>
                             <ChefHat size={20} />
                             <span className="hidden sm-inline">Generate Recipe</span>
                         </button>

@@ -86,6 +86,11 @@ const apiService = {
     getById: (id) => api.get(`/api/recipes/${id}`)
   },
 
+  // Generate endpoints
+  generate: {
+    create: (ingredients) => api.post('/api/generate', { ingredients })
+  },
+
 
   // Health check
   healthCheck: () => api.get('/')
