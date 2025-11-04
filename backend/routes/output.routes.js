@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../config/db.config");
+const db = require("../db");
 
 // Fetch latest result for a user
 router.get("/latest/:userId", async (req, res) => {

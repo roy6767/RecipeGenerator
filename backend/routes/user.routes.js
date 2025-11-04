@@ -5,7 +5,7 @@ const db = require('../db');
 // GET all users - Example endpoint
 router.get('/', async (req, res, next) => {
   try {
-    const [rows] = await db.query('SELECT * FROM users');
+    const [rows] = await db.query('SELECT id, email FROM users');
     res.json({
       success: true,
       data: rows
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 // GET user by ID
 router.get('/:id', async (req, res, next) => {
   try {
-    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [req.params.id]);
+    const [rows] = await db.query('SELECT id, email FROM users WHERE id = ?', [req.params.id]);
     
     if (rows.length === 0) {
       return res.status(404).json({
@@ -39,19 +39,19 @@ router.get('/:id', async (req, res, next) => {
 // POST create new user
 router.post('/', async (req, res, next) => {
   try {
-    const { username, email } = req.body;
+    const { email, password } = req.body;
     
     // Basic validation
-    if (!username || !email) {
+    if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Username and email are required'
+        message: 'Email and password are required'
       });
     }
     
     const [result] = await db.query(
-      'INSERT INTO users (username, email) VALUES (?, ?)',
-      [username, email]
+      'INSERT INTO users (email, password) VALUES (?, ?)',
+      [email, password]
     );
     
     res.status(201).json({
@@ -59,7 +59,6 @@ router.post('/', async (req, res, next) => {
       message: 'User created successfully',
       data: {
         id: result.insertId,
-        username,
         email
       }
     });
@@ -71,19 +70,29 @@ router.post('/', async (req, res, next) => {
 // PUT update user
 router.put('/:id', async (req, res, next) => {
   try {
-    const { username, email } = req.body;
-    const [result] = await db.query(
-      'UPDATE users SET username = ?, email = ? WHERE id = ?',
-      [username, email, req.params.id]
-    );
-    
+    const { email, password } = req.body;
+
+    // Build query dynamically: update password only if provided
+    let query = 'UPDATE users SET email = ?';
+    const params = [email];
+
+    if (password) {
+      query += ', password = ?';
+      params.push(password);
+    }
+
+    query += ' WHERE id = ?';
+    params.push(req.params.id);
+
+    const [result] = await db.query(query, params);
+
     if (result.affectedRows === 0) {
       return res.status(404).json({
         success: false,
         message: 'User not found'
       });
     }
-    
+
     res.json({
       success: true,
       message: 'User updated successfully'
@@ -92,6 +101,7 @@ router.put('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
 
 // DELETE user
 router.delete('/:id', async (req, res, next) => {
