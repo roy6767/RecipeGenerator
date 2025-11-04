@@ -2,6 +2,22 @@
 CREATE DATABASE IF NOT EXISTS fridge;
 USE fridge;
 
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(100),
+  password VARCHAR(255)
+);
+
+CREATE TABLE preferences (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  experience_level VARCHAR(50),
+  cuisines JSON,
+  dietary_restrictions JSON,
+  allergies JSON,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 -- Create the main 'recipes' table if not exists
 CREATE TABLE IF NOT EXISTS recipes (
   id INT AUTO_INCREMENT PRIMARY KEY,

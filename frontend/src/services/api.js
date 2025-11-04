@@ -27,7 +27,8 @@ api.interceptors.request.use(
 // Response interceptor - for global error handling
 api.interceptors.response.use(
   (response) => {
-    return response.data;
+    // Return the full response for flexibility
+    return response;
   },
   (error) => {
     if (error.response) {
@@ -54,6 +55,22 @@ api.interceptors.response.use(
 
 // API service methods
 const apiService = {
+  // Auth endpoints
+  auth: {
+    login: (credentials) => api.post('/api/auth/login', credentials),
+    register: (data) => api.post('/api/auth/register', data),
+    logout: () => {
+      localStorage.removeItem('authToken');
+      window.location.href = '/auth';
+    }
+  },
+
+  // Profile endpoints
+  profile: {
+    get: () => api.get('/api/profile'),
+    update: (data) => api.put('/api/profile', data)
+  },
+
   // User endpoints
   users: {
     getAll: () => api.get('/api/users'),
@@ -69,6 +86,11 @@ const apiService = {
     getById: (id) => api.get(`/api/recipes/${id}`)
   },
 
+
+  // Health check
+  healthCheck: () => api.get('/')
 };
 
+// Export both the axios instance and the service methods
+export { api };
 export default apiService;
