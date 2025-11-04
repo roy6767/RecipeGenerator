@@ -177,7 +177,7 @@ const HomePage = () => {
                             </p>
                         </div>
                         
-                        <button className="primary-btn blue-btn">
+                        <button className="primary-btn blue-btn" onClick={() => navigate('/profile')}>
                             <User size={20} />
                             <span className="hidden sm-inline">Profile</span>
                         </button>
