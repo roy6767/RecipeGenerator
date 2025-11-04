@@ -7,6 +7,7 @@ const { errorHandler, notFoundHandler } = require("./middleware/errorHandler");
 const userRoutes = require("./routes/user.routes");
 const outputRoutes = require("./routes/output.routes");
 const recipeRoutes = require("./routes/recipe.routes");
+const generateRoutes = require('./routes/generate.routes');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profile.routes');
 
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/results", outputRoutes);
 app.use("/api/recipes", recipeRoutes);
+app.use('/api/generate', generateRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 

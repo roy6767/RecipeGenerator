@@ -2,13 +2,13 @@
 CREATE DATABASE IF NOT EXISTS fridge;
 USE fridge;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(100),
   password VARCHAR(255)
 );
 
-CREATE TABLE preferences (
+ CREATE TABLE IF NOT EXISTS preferences (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT,
   experience_level VARCHAR(50),
@@ -128,4 +128,14 @@ CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   email VARCHAR(512)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Create the 'results' table to store generated recipes
+CREATE TABLE IF NOT EXISTS results (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  input_value TEXT,
+  output_value TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
