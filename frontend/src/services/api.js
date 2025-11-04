@@ -86,6 +86,7 @@ const apiService = {
     getById: (id) => api.get(`/api/recipes/${id}`)
   },
 
+
   // Health check
   healthCheck: () => api.get('/')
 };

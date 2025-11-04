@@ -124,3 +124,8 @@ INSERT IGNORE INTO ingredients (recipe_id, ingredient_text) VALUES
 (6, '2 tbsp Flour');
 -- METE'S TABLE ENDS
 
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(512)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

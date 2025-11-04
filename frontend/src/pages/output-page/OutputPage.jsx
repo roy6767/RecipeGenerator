@@ -1,12 +1,11 @@
-import React, {useEffect, useState}from "react";
-import "./OutputPage.css";
+import React, { useEffect } from "react";
+import "./style/OutputPage.css";
 
 function OutputPage() {
     const [result, setResult] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
 
-    // Fetch userID from localStorage(Set by Login)
     const userID = localStorage.getItem("userID");
 
     useEffect(() => {
@@ -18,9 +17,7 @@ function OutputPage() {
 
         fetch(`http://localhost:5000/api/results/latest/${userID}`)
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
+                if (!response.ok) throw new Error("Network response was not ok");
                 return response.json();
             })
             .then((data) => {
@@ -33,27 +30,32 @@ function OutputPage() {
             });
     }, [userID]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    if (loading) return <div className="loading">Loading...</div>;
+    if (error) return <div className="error">Error: {error}</div>;
+    if (!result) return <div className="no-result">No result found.</div>;
 
-    if (!result) {
-        return <div>No result found.</div>;
-    }
-
-  return (
-    <div className="output-page">
-      <h1>Recipe</h1>
-      <div className="recipe-card">
-        <p><strong>Input:</strong> {result.input_value}</p>
-        <p><strong>Output:</strong> {result.output_value}</p>
-        <p><em>{new Date(result.created_at).toLocaleString()}</em></p>
-      </div>
-    </div>
-  );
+    return (
+        <div className="output-page">
+            <h1>Recipe</h1>
+            <div className="recipe-card">
+                <div className="recipe-columns">
+                    <div className="recipe-ingredients">
+                        <h2>Ingredients</h2>
+                        <p>{result.input_value}</p>
+                    </div>
+                    <div className="recipe-instructions">
+                        <h2>Instructions</h2>
+                        <ol>
+                            {result.output_value.split("\n").map((step, index) => (
+                                <li key={index}>{step}</li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
+                <p className="recipe-date"><em>{new Date(result.created_at).toLocaleString()}</em></p>
+            </div>
+        </div>
+    );
 }
 
 export default OutputPage;
