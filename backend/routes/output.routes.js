@@ -2,17 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// Create a MySQL2 connection pool
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 5,
-  queueLimit: 0,
-});
-
 // GET /api/results/latest/:userId
 // Fetch the latest result for a given user
 router.get("/latest/:userId", async (req, res) => {
@@ -20,7 +9,7 @@ router.get("/latest/:userId", async (req, res) => {
 
   try {
     // Execute the query
-    const [results] = await pool.execute(
+    const [results] = await db.execute(
       "SELECT * FROM results WHERE user_id = ? ORDER BY created_at DESC LIMIT 1",
       [userId]
     );
