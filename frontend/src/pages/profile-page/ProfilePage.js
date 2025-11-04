@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   // State for storing profile data
   const [profile, setProfile] = useState({
     email: '',
@@ -184,7 +186,15 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profile-container">
+    <>
+      <nav className="nav-bar sticky-nav">
+        <div className="nav-container">
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <button className="primary-btn blue-btn" onClick={() => navigate('/')}>Home</button>
+          </div>
+        </div>
+      </nav>
+      <div className="profile-container">
       <div className="profile-card">
         {/* Profile Icon */}
         <div className="profile-icon">
@@ -393,6 +403,7 @@ const ProfilePage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

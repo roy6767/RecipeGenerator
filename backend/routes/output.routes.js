@@ -2,24 +2,26 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// Create a MySQL2 connection pool
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 5,
-  queueLimit: 0,
-});
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null)
+    return res.sendStatus(401).json({ message: "No token provided" });
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403).json({ message: "Invalid token" });
+    req.user = user;
+    next();
+  });
+}
 
 // GET /api/results/latest/:userId
 // Fetch the latest result for a given user
-router.get("/latest/:userId", async (req, res) => {
-  const userId = req.params.userId;
+router.get("/latest/", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
 
   try {
-    // Execute the query
     const [results] = await pool.execute(
       "SELECT * FROM results WHERE user_id = ? ORDER BY created_at DESC LIMIT 1",
       [userId]

@@ -22,8 +22,9 @@ const HomePage = () => {
             try {
                 setLoading(true);
                 const response = await apiService.recipes.getAll();
-                if (response.success && response.data) {
-                    setRecipes(response.data);
+                // Axios returns response.data, backend returns { success, data }
+                if (response.data && response.data.success && response.data.data) {
+                    setRecipes(response.data.data);
                 }
                 setError(null);
             } catch (err) {
@@ -176,7 +177,7 @@ const HomePage = () => {
                             </p>
                         </div>
                         
-                        <button className="primary-btn blue-btn">
+                        <button className="primary-btn blue-btn" onClick={() => navigate('/profile')}>
                             <User size={20} />
                             <span className="hidden sm-inline">Profile</span>
                         </button>
