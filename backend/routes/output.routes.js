@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const pool = require("../db");
+const { verifyToken } = require("../middleware/authMiddleware");
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -18,7 +19,7 @@ function authenticateToken(req, res, next) {
 }
 
 // Fetch the latest result for a given user
-router.get("/latest/", authenticateToken, async (req, res) => {
+router.get("/latest/", verifyToken, async (req, res) => {
   const userId = req.user.id;
 
   try {
