@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import "./style/OutputPage.css";
+import { useNavigate } from "react-router-dom";
 
 function OutputPage() {
   const [result, setResult] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
-
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("authToken");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -40,31 +41,50 @@ function OutputPage() {
   if (!result) return <div className="no-result">No result found.</div>;
 
   return (
-    <div className="output-page">
-      <h1>Recipe</h1>
-      <div className="recipe-card">
-        <div className="recipe-columns">
-          <div className="recipe-ingredients">
-            <h2>Ingredients</h2>
-            <p>{result.input_value}</p>
-          </div>
-          <div className="recipe-instructions">
-            <h2>Instructions</h2>
-            <ol>
-              {result.instructions ? (
-                result.output_value
-                  .split("\n")
-                  .map((step, i) => <li key={i}>{step}</li>)
-              ) : (
-                <li>No instructions available.</li>
-              )}
-            </ol>
+    <div className="app-container output-page">
+      {/* Navbar */}
+      <nav className="nav-bar sticky-nav">
+        <div className="nav-container">
+          <div className="nav-title">AI Generator</div>
+          <div className="nav-buttons">
+            <button
+              className="primary-btn gray-btn"
+              onClick={() => navigate(-1)}>
+              Back
+            </button>
+            <button
+              className="primary-btn blue-btn"
+              onClick={() => navigate("/")}>
+              Home
+            </button>
           </div>
         </div>
-        <p className="recipe-date">
-          <em>{new Date(result.created_at).toLocaleString()}</em>
-        </p>
-      </div>
+      </nav>
+
+      {/* Page Content */}
+      <main className="main-content">
+        <div className="content-container">
+          <h1 className="main-title">Recipe</h1>
+
+          <div className="recipe-card">
+            <div className="recipe-ingredients">
+              <h2>Your Ingredients</h2>
+              <p>{result.input_value}</p>
+            </div>
+
+            <div className="recipe-instructions">
+              <h2>Instructions</h2>
+              <div className="instructions-text">
+                {result.output_value || "No instructions available."}
+              </div>
+            </div>
+
+            <p className="recipe-date">
+              <em>{new Date(result.created_at).toLocaleString()}</em>
+            </p>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
