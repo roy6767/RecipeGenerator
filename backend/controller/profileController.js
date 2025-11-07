@@ -2,7 +2,7 @@ const pool = require('../db');
 const User = require('../model/User');
 const Preferences = require('../model/Preferences');
 
-// --- Get profile ---
+
 const getProfile = async (req, res) => {
   const userId = req.user && req.user.id;
   if (!userId) {
@@ -10,7 +10,6 @@ const getProfile = async (req, res) => {
   }
 
   try {
-    // Get user info
     const [users] = await pool.query(
       `SELECT id, email FROM ${User.tableName} WHERE id = ?`,
       [userId]
@@ -21,14 +20,11 @@ const getProfile = async (req, res) => {
     }
     
     const user = users[0];
-
-    // Get preferences (if they exist)
     const [prefRows] = await pool.query(
       `SELECT * FROM ${Preferences.tableName} WHERE user_id = ?`,
       [userId]
     );
 
-    // If preferences exist, use them; otherwise use empty defaults
     let preferences;
     if (prefRows && prefRows.length > 0) {
       preferences = Preferences.fromDbRow(prefRows[0]);
@@ -51,7 +47,7 @@ const getProfile = async (req, res) => {
   }
 };
 
-// --- Update profile ---
+
 const updateProfile = async (req, res) => {
   const userId = req.user && req.user.id;
   if (!userId) {
@@ -68,7 +64,7 @@ const updateProfile = async (req, res) => {
   } = req.body;
 
   try {
-    // Update user info (only if email provided)
+
     if (email) {
       if (password) {
         await pool.query(
@@ -83,7 +79,7 @@ const updateProfile = async (req, res) => {
       }
     }
 
-    // Update or create preferences
+
     const [existing] = await pool.query(
       `SELECT * FROM ${Preferences.tableName} WHERE user_id=?`,
       [userId]
@@ -98,7 +94,7 @@ const updateProfile = async (req, res) => {
     });
 
     if (existing && existing.length > 0) {
-      // Update existing preferences
+
       await pool.query(
         `UPDATE ${Preferences.tableName} 
          SET experience_level=?, cuisines=?, dietary_restrictions=?, allergies=? 
@@ -106,7 +102,7 @@ const updateProfile = async (req, res) => {
         [prefData.experience_level, prefData.cuisines, prefData.dietary_restrictions, prefData.allergies, userId]
       );
     } else {
-      // Create new preferences
+
       await pool.query(
         `INSERT INTO ${Preferences.tableName} (user_id, experience_level, cuisines, dietary_restrictions, allergies)
          VALUES (?, ?, ?, ?, ?)`,
@@ -114,7 +110,6 @@ const updateProfile = async (req, res) => {
       );
     }
 
-    // If email or password changed, tell user to login again
     if (email || password) {
       res.json({ 
         message: 'Profile updated successfully. Please login again with your new credentials.',
