@@ -24,13 +24,8 @@ const PreferenceModel = {
 
   fromDbRow(row) {
     function parseArray(value) {
-      // If empty or null, return empty array
-      if (!value || value === '') return [];
-      
-      // If already an array (MySQL JSON type auto-parses), return it
+      if (!value || value === '') return []; 
       if (Array.isArray(value)) return value;
-      
-      // If it's a string, try to parse it
       if (typeof value === 'string') {
         try {
           const parsed = JSON.parse(value);
@@ -39,8 +34,6 @@ const PreferenceModel = {
           return [];
         }
       }
-      
-      // For any other type, return empty array
       return [];
     }
 
